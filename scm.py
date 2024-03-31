@@ -110,6 +110,7 @@ class GIT(object):
         kwargs.setdefault('env', GIT.ApplyEnvVars(kwargs))
         kwargs.setdefault('cwd', cwd)
         kwargs.setdefault('autostrip', strip_out)
+        print(f"GIT Capture run: git ${args}")
         return git_common.run(*args, **kwargs)
 
     @staticmethod
