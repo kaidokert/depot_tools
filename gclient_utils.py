@@ -652,7 +652,7 @@ def CheckCallAndFilter(args,
             pipe_reader, pipe_writer = os.pipe()
 
         print("========Running '%s' in '%s'" % (' '.join(args), run_cwd))
-        print_backtrace()
+        # print_backtrace()
         kid = subprocess2.Popen(args,
                                 bufsize=0,
                                 stdout=pipe_writer,
