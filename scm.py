@@ -111,6 +111,7 @@ class GIT(object):
                                           stderr=subprocess2.PIPE,
                                           env=env,
                                           **kwargs)
+        print(f"GIT.Capture: git ${args} = ${output}")
         output = output.decode('utf-8', 'replace')
         return output.strip() if strip_out else output
 

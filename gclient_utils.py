@@ -27,6 +27,20 @@ import urllib.parse
 
 import subprocess2
 
+import traceback
+import inspect
+
+def print_backtrace():
+    # Extract the current stack frames
+    frames = inspect.stack()
+    # Format the stack frame information into a readable format
+    for frame in frames:
+        # Extracting relevant details from the frame
+        frame_info = inspect.getframeinfo(frame[0])
+        print(f"File \"{frame_info.filename}\", line {frame_info.lineno}, in {frame_info.function}")
+        if frame_info.code_context:
+            print(f"  {frame_info.code_context[0].strip()}")
+
 # Git wrapper retries on a transient error, and some callees do retries too,
 # such as GitWrapper.update (doing clone). One retry attempt should be
 # sufficient to help with any transient errors at this level.
@@ -637,6 +651,8 @@ def CheckCallAndFilter(args,
         else:
             pipe_reader, pipe_writer = os.pipe()
 
+        print("========Running '%s' in '%s'" % (' '.join(args), run_cwd))
+        print_backtrace()
         kid = subprocess2.Popen(args,
                                 bufsize=0,
                                 stdout=pipe_writer,
